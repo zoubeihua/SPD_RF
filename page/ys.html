@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>入库验收</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+			body,html{
+				width: 100%;
+				height: 100%;
+			}
+			select, textarea, input[type='text'], input[type='search'], input[type='password'], input[type='datetime'], input[type='datetime-local'], input[type='date'], input[type='month'], input[type='time'], input[type='week'], input[type='number'], input[type='email'], input[type='url'], input[type='tel'], input[type='color'] {
+				margin-bottom: 0;
+				 text-align: left;
+			}
+			.mui-search:before
+			{
+			    margin-top: -9px;
+			}
+			.mui-input-row .mui-input-clear ~ .mui-icon-clear, .mui-input-row .mui-input-speech ~ .mui-icon-speech, .mui-input-row .mui-input-password ~ .mui-icon-eye {
+				top: 8px;
+			}
+			.mui-btn-outlined.mui-btn-negative, .mui-btn-outlined.mui-btn-danger, .mui-btn-outlined.mui-colorWhite{
+				color: #fff;
+				border: 1px solid #fff;
+			}
+			.main{
+				display: flex;
+				width:100%;
+				height:100%;
+				flex-direction:column;
+				background-color:#EC971F;
+			}
+			.seach{
+				display: flex;
+				align-items: center;
+				height:52px;
+				background-color: #fff;
+				padding: 0 10px;
+			}
+			.mui-input-row.mui-search{
+				width: 100%;
+			}
+			.seach .inputs,.seach .changeBtn,.seach .seachBtn{
+				display: flex;
+				height: 52px;
+				flex: 4;
+				align-items: center;
+				justify-content: center;
+			}
+			.seach .changeBtn,.seach .seachBtn{
+				flex: 1;
+				
+			}
+			.seach .changeBtn:active,.seach .seachBtn:active{
+				-webkit-transition-duration: 0s; 
+				-moz-transition-duration: 0s; 
+				transition-duration: 0ms; 
+				opacity: 0.2;
+			}
+			.fontSize-44{
+				font-size: 44px;
+				color: #666;
+			}
+			.font-20{
+				font-size: 25px;
+				color: #666;
+			}
+			.viewContent{
+				display: flex;
+				flex:1;
+				width:100%;
+				overflow: auto;
+				padding: 10px;
+			}
+			.Line{
+				width: 100%;
+				border-top: 1px #EC971F dashed;
+			}
+			.detail{
+				display: flex;
+				flex-direction:column;
+				width: 100%;
+				min-height: 100%;
+				background-color: #fff;
+				border-radius: 5px;
+			}
+			.rowContent{
+				display: flex;
+				flex-direction: column;
+				flex: 16;
+				padding: 14px 14px 0 14px;
+			}
+			.rowContent .rows{
+				display: flex;
+				flex-grow:1;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.rowContent .rows .title{
+				flex-shrink: 0;
+			}
+			.rowContent .rows .title,.rowContent .rows  .tVal{
+				font-size: 14px;
+				color: #666;
+			}
+			.rowContent .rows  .tVal{
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.rowFooter{
+				display: flex;
+				flex: 1;
+				padding: 0 10px;
+				margin:0 10px;
+				border-top: 1px #EC971F dashed;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.radius{
+				width: 14px;
+				height: 14px;
+				background-color: #EC971F;
+				border-radius: 50%;
+			}
+			.footer{
+				height: 52px;
+				/* background-color: #129DCD; */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 5px 20px;
+			}
+			.ColorRed{
+				background-color: red;
+				color: #fff !important;
+				padding: 0 4px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="main" id="main">
+			<div class="seach">
+				<div class="inputs">
+					<div class="mui-input-row" style="width: 100%;">
+						<input type="search"  @keyup.enter="select" v-model="barCodeVal" class="mui-input-clear" :placeholder="state?'请扫描箱码':'请输入发票号'">
+					</div>
+				</div>
+				<div class="changeBtn" @click="swich">
+					<i class="iconfont icon-moshiqiehuan fontSize-44"></i>
+				</div>
+				<div class="seachBtn" @click="startSeach">
+					<i v-if="state" class="iconfont icon-saoma font-20"></i>
+					<button v-else type="button" @click="select" class="mui-btn mui-btn-primary">查询</button>
+				</div>
+			</div>
+			<div class="viewContent">
+				<div class="detail">
+					<div class="rowContent">
+						<div class="rows">
+							<div class="title">总整箱数:</div>
+							<div class="tVal">{{ElmData.zxs}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">到货数量:</div>
+							<div class="tVal">{{ElmData.preqty}}</div>
+						</div>
+						<div class="Line"></div>
+						<div class="rows">
+							<div class="title">药品名称:</div>
+							<div class="tVal">{{ElmData.itemname}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">规格:</div>
+							<div class="tVal">{{ElmData.itemspec}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">批号:</div>
+							<div class="tVal">{{ElmData.lot}}</div>
+						</div>
+						<div class="Line"></div>
+						<div class="rows">
+							<div class="title">购入价:</div>
+							<div class="tVal" :class="[ElmData.pricebuy != ElmData.invoiceprice ? 'ColorRed' : '']">{{ElmData.pricebuy}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">产地:</div>
+							<div class="tVal">{{ElmData.itemplace}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">供应商:</div>
+							<div class="tVal">{{ElmData.supplyname}}</div>
+						</div>
+						<div class="Line"></div>
+						<div class="rows">
+							<div class="title">有效日:</div>
+							<div class="tVal" :class="[ElmData.delday <= 240 ? 'ColorRed' : '']">{{ElmData.expiredate}}</div>
+						</div>
+						<div class="rows">
+							<div class="title">发票价:</div>
+							<div class="tVal" :class="[ElmData.pricebuy != ElmData.invoiceprice ? 'ColorRed' : '']">{{ElmData.invoiceprice}}</div>
+						</div>
+					</div>
+					<div class="rowFooter">
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+						<div class="radius"></div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<a type="button" href="#popover" class="mui-btn mui-btn-danger mui-btn-outlined mui-colorWhite" style="margin-right: 20px;" @click="no">不通过</a>
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined mui-colorWhite" @click="ok">通过</button>
+			</div>
+			<div id="popover" class="mui-popover">
+			  <ul class="mui-table-view">
+				<li class="mui-table-view-cell" v-for="(item,index) in reasonList" @click="choiceReason(item)">
+					<a href="#">{{item.reason}}</a>
+				</li>
+			  </ul>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/syscallrout.js"></script>
+	<script src="../js/utils.js"></script>
+	<script src="../js/ys.js"></script>
+	<script type="text/javascript">
+		mui.init()
+		var old_back = mui.back;
+		mui.back = function() {
+			//执行mui封装好的窗口关闭逻辑；
+			old_back();
+			ys.barcode.close();
+		}
+	</script>
+</html>

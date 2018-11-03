@@ -1,0 +1,429 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>入库上架</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/slides.css"  rel="stylesheet"/>
+		<style type="text/css">
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+			}
+			p{
+				margin: 0;
+			}
+			* {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			::-webkit-input-placeholder {
+				font-size: 14px;
+			}
+
+			.mui-off-canvas-left,
+			.mui-off-canvas-right {
+				background-color: #f7f7f7;
+			}
+
+			.mui-scroll {
+				display: flex;
+				height: 100%;
+				flex-direction: column;
+			}
+
+			.mui-input-row label {
+				font-size: 14px;
+				padding: 13px 15px;
+			}
+
+			.mui-input-group {
+				margin: 20px 0;
+			}
+
+			select,
+			textarea,
+			input[type='text'],
+			input[type='search'],
+			input[type='password'],
+			input[type='datetime'],
+			input[type='datetime-local'],
+			input[type='date'],
+			input[type='month'],
+			input[type='time'],
+			input[type='week'],
+			input[type='number'],
+			input[type='email'],
+			input[type='url'],
+			input[type='tel'],
+			input[type='color'] {
+				margin-bottom: 0;
+				text-align: left;
+			}
+
+			.mui-search:before {
+				margin-top: -9px;
+			}
+			.w-max{
+				width: 100%;
+			}
+			.mui-input-row .mui-input-clear~.mui-icon-clear,
+			.mui-input-row .mui-input-speech~.mui-icon-speech,
+			.mui-input-row .mui-input-password~.mui-icon-eye {
+				top: 8px;
+			}
+
+			.mui-btn-outlined.mui-btn-negative,
+			.mui-btn-outlined.mui-btn-danger,
+			.mui-btn-outlined.mui-colorWhite {
+				color: #fff;
+				border: 1px solid #fff;
+			}
+			.mui-radio input[type='radio']:before, .mui-checkbox input[type='checkbox']:before {
+				font-size: 20px;
+			}
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 0;
+				padding-left: 30px;
+			}
+
+			.mui-input-row {
+				height: 30px;
+				line-height: 30px;
+			}
+
+			.mui-radio input[type='radio'],
+			.mui-checkbox input[type='checkbox'] {
+				top: 0;
+			}
+
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 0px;
+			}
+
+			.mui-input-row .lable {
+				padding: 0;
+			}
+
+			.fade-enter-active,
+			.fade-leave-active {
+				transition: opacity .5s;
+			}
+
+			.fade-enter,
+			.fade-leave-to
+
+			/* .fade-leave-active below version 2.1.8 */
+				{
+				opacity: 0;
+			}
+
+			.mui-table-view-radio .mui-table-view-cell {
+				color: #333;
+				font-size: 14px;
+			}
+
+			.main {
+				display: flex;
+				width: 100%;
+				height: 100%;
+				flex-direction: column;
+			}
+
+			.seach {
+				display: flex;
+				align-items: center;
+				height: 36px;
+				background-color: #fff;
+				padding: 0 10px;
+				justify-content: space-between;
+				font-size: 14px;
+				color: #333;
+				position: relative;
+				z-index: 1;
+			}
+
+			.seach .checkBox,
+			.seach .sjzt,
+			.seach .yszt,
+			.seach .sx {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				flex: 1;
+			}
+			.seach .sjzt {
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.sjList {
+				position: fixed;
+				top: 36px;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.4);
+				z-index: 1;
+			}
+			.cell-List{
+				background-color: #fff;
+			}
+			.sjList .sjRow {
+				height: 40px;
+				line-height: 40px;
+				border-top: #ccc 1px solid;
+			}
+
+			.checkedColor {
+				color: #007aff !important;
+			}
+
+			.curColorBlue {
+				color: #007aff !important;
+			}
+
+			.mask {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.3);
+				z-index: 1;
+			}
+
+			.viewContent {
+				flex: 1;
+				width: 100%;
+				overflow: auto;
+				padding: 5px;
+				flex-direction: column;
+				padding-top: 0;
+			}
+			.cardList{
+				flex-direction: column;
+				font-size: 14px;
+				color: #333;
+				padding: 5px;
+				background-color: #fff;
+				border-radius: 5px;
+				margin-top: 5px;
+			}
+			.cardList:active{
+				opacity: 0.3;
+			}
+			.titleFph{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px dashed #EC971F;
+				height: 30px;
+				margin-bottom: 4px;
+			}
+			.titleFph .checkBoxs{
+				width: 20px;
+			}
+			.h-20{
+				height: 20px !important;
+			}
+			.ypdetail{
+				display: flex;
+				flex-direction: column;
+			}
+			.cell-2{
+				display: flex;
+				
+				justify-content: space-between;
+			}
+			.cell-2 p{
+				flex: 1;
+			}
+			.cell-2 .flex-2{
+				flex: 2;
+			}
+			.footer {
+				height: 52px;
+				background-color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content:space-between;
+				padding: 5px 5px;
+			}
+			.asideFooter{
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				height: 52px;
+				display: flex;
+			}
+			.nos,.querys{
+				flex: 1;
+			}
+			.mui-radius-0{
+				border-radius: 0 !important;
+				border: 0 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main" id="main">
+			<div class="seach">
+			<!-- 	<div class="checkBox">
+					<div class="mui-input-row  mui-checkbox mui-left w-max">
+						<label class="lable">全选</label>
+						<input  name="checkbox1" value="Item 1" type="checkbox">
+					</div>
+				</div> -->
+				<div class="sjzt" @click="sjBtn">
+					<div :class="[sjztChecked ? 'curColorBlue' : '']">
+						{{sjztText}}
+						<i v-if="sjztShow" class="iconfont icon-tubiaozhizuo-1" :class="[sjztChecked ? 'curColorBlue' : '']"></i>
+						<i v-else class="iconfont icon-tubiaozhizuo-" :class="[sjztChecked ? 'curColorBlue' : '']"></i>
+					</div>
+
+				</div>
+				<div class="yszt" @click="ysBtn">
+					<div :class="[ysztChecked ? 'curColorBlue' : '']">
+						{{ysztText}}
+						<i v-if="ysztShow" class="iconfont icon-tubiaozhizuo-1" :class="[ysztChecked ? 'curColorBlue' : '']"></i>
+						<i v-else class="iconfont icon-tubiaozhizuo-" :class="[ysztChecked ? 'curColorBlue' : '']"></i>
+					</div>
+				</div>
+				<div class="sx" @click="sxBtn">
+					<div class="sxBtn">
+						筛选
+						<i class="iconfont icon-shaixuan"></i>
+					</div>
+				</div>
+			</div>
+			<div class="viewContent">
+				<div class="cardList"  v-for="(item,index) in cardList" @click="radioClick(item,index)">
+					<div class="titleFph">
+						<div class="fph">
+							发票号：{{item.invoiceno}}
+						</div>
+						<div class="checkBoxs" v-if="item.sjflag == 0">
+							<i class="iconfont icon-yuangongqudaoAPP-fuxuankuangweixuanzhong" :class="[item.checked ? 'icon-yuangongqudaoAPP-fuxuankuangxuanzhong' : '']"></i>
+						</div>
+					</div>
+					<div class="ypdetail">	
+						<div class="cell-2">
+							<p class="flex-2">药品名称：{{item.itemname}}</p>
+							<p>规格：{{item.itemspec}}</p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">效期：{{item.expiredate}}</p>
+							<p>批号：{{item.lot}}</p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">进价：{{item.pricebuy}}</p>
+							<p>进价金额：{{item.jjje}}</p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">供应商：{{item.supplyname}}</p>
+							<p>上架状态：<span v-if="item.sjflag == 0" style="color:red;">未上架</span><span v-else style="color:darkgreen;">已上架</span></p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">货位编码：{{item.loccode}}</p>
+							<p>上架人：{{item.sjr}}</p>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="footer">
+				<div class="">
+					<button type="button" class="mui-btn mui-btn-danger" style="margin-right: 20px;" @click="no">不通过</button>
+					<button type="button" class="mui-btn mui-btn-primary" @click="ok">上架</button>
+				</div>
+				<div class="">
+					<button @click="allBox" type="button" style="padding: 6px 5px;" class="mui-btn mui-btn-outlined">
+						全选
+						<i v-if="allCheck" style="margin-left: 5px;" class="iconfont icon-yuangongqudaoAPP-fuxuankuangxuanzhong"></i>
+						<i v-else style="margin-left: 5px;" class="iconfont icon-yuangongqudaoAPP-fuxuankuangweixuanzhong"></i>
+					</button>
+				</div>
+			</div>
+			<!-- 上架状态 -->
+			<transition name="fade">
+				<ul class="mui-table-view mui-table-view-radio sjList" v-if="sjztShow">
+					<li class="mui-table-view-cell cell-List" v-for="(item , index) in sjList" :class="[item.checked? 'mui-selected checkedColor' : '']"
+					 @click="selectedSj(item)">
+						<a class="mui-navigate-right">
+							{{item.text}}
+						</a>
+					</li>
+				</ul>
+			</transition>
+			<!-- 验收状态 -->
+			<transition name="fade">
+				<ul class="mui-table-view mui-table-view-radio sjList" v-if="ysztShow">
+					<li class="mui-table-view-cell cell-List" v-for="(item , index) in ysList" :class="[item.checked? 'mui-selected checkedColor' : '']"
+					 @click="selectedYs(item)">
+						<a class="mui-navigate-right">
+							{{item.text}}
+						</a>
+					</li>
+				</ul>
+			</transition>
+			<!-- 菜单容器 -->
+			<aside class="cbp-spmenu cbp-spmenu-vertical-right cbp-spmenu-right" :class="[showRightMenu == true?'cbp-spmenu-open':'']">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>发票号</label>
+						<input type="text" v-model="reqData.invoiceno" class="mui-input-clear" placeholder="请输入内容">
+					</div>
+					<div class="mui-input-row">
+						<label>供应商</label>
+						<input type="text" v-model="reqData.supplyname" class="mui-input-clear" placeholder="请输入内容">
+					</div>
+					<div class="mui-input-row">
+						<label>药品名称</label>
+						<input type="text" v-model="reqData.retrievalcode" class="mui-input-clear" placeholder="请输入内容">
+					</div>
+				</form>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>开始时间</label>
+						<input type="text" class="mui-input-clear" v-model="reqData.startdate" id="startTime" placeholder="请输入内容">
+					</div>
+					<div class="mui-input-row">
+						<label>结束时间</label>
+						<input type="text" class="mui-input-clear" v-model="reqData.enddate" id="endTime" placeholder="请输入内容">
+					</div>
+				</form>
+				<div class="asideFooter">
+					<div class="nos">
+						<button type="button" class="mui-btn mui-btn-danger mui-btn-block mui-radius-0" @click="showRightMenu = !showRightMenu">取消</button>
+					</div>
+					<div class="querys">
+						<button type="button" class="mui-btn mui-btn-primary mui-btn-block mui-radius-0" @click="select">查询</button>
+					</div>
+				</div>
+			</aside>
+			<div class="mask" @click="showRightMenu = !showRightMenu" v-if="showRightMenu"></div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/syscallrout.js"></script>
+	<script src="../js/utils.js"></script>
+	<script src="../js/sj.js"></script>
+	<script type="text/javascript">
+		mui.init()
+		var old_back = mui.back;
+		mui.back = function() {
+			//执行mui封装好的窗口关闭逻辑；
+			old_back();
+		}
+	</script>
+</html>

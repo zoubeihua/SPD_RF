@@ -1,0 +1,47 @@
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+.cbp-spmenu {
+    position: fixed;
+	width: 70%
+}
+/* Transitions */
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+/* Orientation-dependent styles for the content of the menu */
+.cbp-spmenu-vertical-right ,.cbp-spmenu-vertical-left{
+	height: 100%;
+	top: 0;
+    z-index: 1000;
+    box-shadow: -3px 0 4px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9;
+    /* border-left: 1px solid #ddd; */
+}
+.cbp-spmenu-vertical-left{
+	box-shadow: 3px 0 4px rgba(0, 0, 0, 0.1);
+}
+/* Vertical menu that slides from the  right */
+.cbp-spmenu-right {
+	right: -72%;
+}
+.cbp-spmenu-left {
+	left: -30%;
+}
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.cbp-spmenu-left.cbp-spmenu-open{
+	left: 0;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
