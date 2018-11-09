@@ -156,7 +156,7 @@
 			<div class="seach">
 				<div class="ypbm" @click="ypbmBtn">
 					<div>
-						药品编码
+						检索码
 						<i v-if="state.ypbmDropDown" class="iconfont icon-tubiaozhizuo-1"></i>
 						<i v-else class="iconfont icon-tubiaozhizuo-"></i>
 					</div>
@@ -210,8 +210,8 @@
 				<ul class="sjList" v-show="state.ypbmDropDown">
 					<form class="mui-input-group">
 						<div class="mui-input-row">
-							<label>药品编码</label>
-							<input type="text" class="mui-input-clear" v-model="reqData.retrievalcode" placeholder="请输入药品编码">
+							<label>检索码</label>
+							<input type="text" class="mui-input-clear" v-model="reqData.retrievalcode" placeholder="请输入检索码">
 						</div>
 						<div class="mui-button-row">
 							<button type="button" @click="select" class="mui-btn mui-btn-primary">

@@ -311,7 +311,7 @@
 						<div class="fph">
 							发票号：{{item.invoiceno}}
 						</div>
-						<div class="checkBoxs" v-if="item.sjflag == 0">
+						<div class="checkBoxs" v-if="item.sjflag == 0 || item.ysflag == 1">
 							<i class="iconfont icon-yuangongqudaoAPP-fuxuankuangweixuanzhong" :class="[item.checked ? 'icon-yuangongqudaoAPP-fuxuankuangxuanzhong' : '']"></i>
 						</div>
 					</div>
@@ -330,7 +330,11 @@
 						</div>
 						<div class="cell-2">
 							<p class="flex-2">供应商：{{item.supplyname}}</p>
-							<p>上架状态：<span v-if="item.sjflag == 0" style="color:red;">未上架</span><span v-else style="color:darkgreen;">已上架</span></p>
+							<p>上架状态：
+								<span v-if="item.sjflag == 0" style="color:red;">未上架</span>
+								<span v-if="item.sjflag == 1" style="color:darkgreen;">已上架</span>
+								<span v-if="item.sjflag == 2" style="color:red;">未通过</span>
+							</p>
 						</div>
 						<div class="cell-2">
 							<p class="flex-2">货位编码：{{item.loccode}}</p>
@@ -387,7 +391,7 @@
 						<input type="text" v-model="reqData.supplyname" class="mui-input-clear" placeholder="请输入内容">
 					</div>
 					<div class="mui-input-row">
-						<label>药品名称</label>
+						<label>检索码</label>
 						<input type="text" v-model="reqData.retrievalcode" class="mui-input-clear" placeholder="请输入内容">
 					</div>
 				</form>

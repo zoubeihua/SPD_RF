@@ -59,7 +59,12 @@ var ys = new Vue({
 		reason:'验收合格'
 	},
 	mounted: function () {
-		
+		var _this = this;
+		mui(".mui-input-clear")[0].addEventListener('focus', function(e){
+			mui(".mui-icon-clear")[0].addEventListener('tap',function(e){
+				_this.barCodeVal = "";
+			});
+		})
 	},
 	methods:{
 		swich:function(){
@@ -126,8 +131,17 @@ var ys = new Vue({
 					var detailData = jsonDate.recvdetails;
 					console.log(datastring)
 					if(mainData.totalhandlestate == "1"){
-						_this.storageData = detailData.detailline;
-						_this.ElmData = _this.storageData[0];
+						if(mainData.recordcount > 0){
+							_this.storageData = detailData.detailline;
+							_this.ElmData = _this.storageData[0];
+						}else{
+							mui.toast("暂无数据", {
+								duration: 'short'
+							});
+							_this.storageData = [];
+							_this.ElmData = [];
+						}
+						
 					}else{
 						mui.toast(mainData.totalhandlemessage, {
 							duration: 'short'

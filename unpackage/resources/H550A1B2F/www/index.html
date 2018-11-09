@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<style>
+		body,html{
+			width: 100%;
+			height: 100%;
+			background-image: url(img/bg.jpg);
+			background-size: cover;
+		}
+		.mui-slider{
+			/* min-height: 100%; */
+		}
+
+		.mui-slider-item.view{
+			padding: 20px;
+			display: flex !important;
+			justify-content: space-between;
+		}
+		.appIcon{
+			width: 80px;
+			height: 80px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.appIcon .img{
+			width: 60px;
+			height: 60px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 14px;
+		}
+		.appIcon .img:active{
+			-webkit-transition-duration: 0s; 
+            -moz-transition-duration: 0s; 
+            transition-duration: 0ms; 
+            opacity: 0.2;
+		}
+		.appIcon .text{
+			color: #fff;
+			padding-top: 2px;
+		}
+		.img img{
+			width: 30px !important;
+		}
+		.img.org{
+			background-color: #f66328;
+		}
+		.img.green{
+			background-color: #54b444;
+		}
+		.img.blue{
+			background-color: #59a0df;
+		}
+		.img.pur{
+			background-color:#cb59df;
+		}
+		.main{
+			display: flex;
+			width:100%;
+			height:100%;
+			flex-direction:column;
+		}
+		 .viewContent{
+			display: flex;
+			flex:2;
+			width:100%;
+			overflow: auto;
+		}
+		.footer{
+			height: 58px;
+			display: flex;
+			align-items: center;
+			padding: 5px 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main" id="main">
+		<div class="viewContent">
+			<div class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item view">
+						<div class="appIcon" v-for="(item , index) in elemList" @click="jump(item)">
+							<div class="img" :class="item.classt">
+								<img :src="item.img"/>
+							</div>
+							<div class="text">
+								{{item.text}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+				</div>
+			</div>
+		</div>
+		 <div class="footer">
+		 </div>
+	</div>
+</body>
+<script src="js/mui.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/syscallrout.js"></script>
+<script src="js/index.js"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	var backButtonPress = 0;
+	mui.back = function (event) {
+		backButtonPress++;
+		if (backButtonPress > 1) {
+			plus.runtime.quit();
+		} else {
+			plus.nativeUI.toast('再按一次退出应用');
+		}
+		setTimeout(function () {
+			backButtonPress = 0;
+		}, 1000);
+		return false;
+	};
+	document.body.addEventListener('touchstart', function(){});
+</script>
+</html>

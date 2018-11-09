@@ -98,7 +98,36 @@ var sj = new Vue({
 		checkedList:[]//储存勾选数据
 	},
 	mounted: function() {
-		mui.init()
+		var _this = this;
+		mui(".mui-input-clear").each(function(index,elm){
+			elm.addEventListener('focus', function(e){
+				var key = this.getAttribute("data-input-clear");
+				mui(".mui-icon-clear")[index].addEventListener('tap',function(e){
+					if(key == 1){
+						_this.reqData.invoiceno = ""
+					}else if(key == 2){
+						_this.reqData.supplyname = ""
+					}else if(key == 3){
+						_this.reqData.retrievalcode = ""
+					}else if(key == 4){
+						_this.reqData.startdate = ""
+					}else if(key == 5){
+						_this.reqData.enddate = ""
+					}
+				});
+			})
+		})
+
+		this.selectedSj({
+			text: '未上架',
+			val: '0',
+			checked: false,
+		});
+		this.selectedYs({
+			text: '已验收',
+			val: '1',
+			checked: false
+		})
 	},
 	methods: {
 		//查询
@@ -115,10 +144,14 @@ var sj = new Vue({
 					var detailData = jsonDate.recvdetails;
 					console.log(datastring)
 					if(mainData.totalhandlestate == "1"){
-						for(var i = 0; i < detailData.detailline.length; i++) {
-							_this.$set(detailData.detailline[i], 'checked', false);
+						if(mainData.recordcount > 0){
+							for(var i = 0; i < detailData.detailline.length; i++) {
+								_this.$set(detailData.detailline[i], 'checked', false);
+							};
+							_this.cardList = detailData.detailline;
+						}else{
+							_this.cardList = [];
 						};
-						_this.cardList = detailData.detailline;
 					}else{
 						mui.toast(mainData.totalhandlemessage, {
 							duration: 'short'
@@ -138,9 +171,12 @@ var sj = new Vue({
 		},
 		selectedSj: function(item) {
 			this.sjList.forEach(function(key, index, arr) {
-				key.checked = false;
+				if(item.val == key.val){
+					key.checked = true;
+				}else{
+					key.checked = false;
+				};
 			});
-			item.checked = true;
 			this.sjztText = item.text;
 			this.reqData.sjflag = item.val;
 			this.sjztChecked = true;
@@ -150,9 +186,12 @@ var sj = new Vue({
 		},
 		selectedYs: function(item) {
 			this.ysList.forEach(function(key, index, arr) {
-				key.checked = false;
+				if(item.val == key.val){
+					key.checked = true;
+				}else{
+					key.checked = false;
+				};
 			});
-			item.checked = true;
 			this.ysztText = item.text;
 			this.reqData.syflag = item.val;
 			this.ysztChecked = true;
@@ -165,22 +204,25 @@ var sj = new Vue({
 			console.log(this.showRightMenu)
 		},
 		radioClick:function(item,index){
-			if(item.sjflag == 0){}
-			item.checked = !item.checked;
-			if(this.cardList.length == 1){
-				if(item.checked){
-					this.allCheck = true;
-				}else{
-					this.allCheck = false;
+			if(item.sjflag == 0 || item.ysflag == 1){
+				item.checked = !item.checked;
+				if(this.cardList.length == 1){
+					if(item.checked){
+						this.allCheck = true;
+					}else{
+						this.allCheck = false;
+					}
+					
 				}
-				
 			}
 		},
 		allBox:function(){
 			this.allCheck = !this.allCheck;
 			if(this.allCheck){
 				this.cardList.forEach(function(key,index,arr){
-					key.checked = true;
+					if(key.sjflag == 0 || key.ysflag == 1){
+						key.checked = true;
+					};
 				});
 			}else{
 				this.cardList.forEach(function(key,index,arr){
@@ -193,11 +235,11 @@ var sj = new Vue({
 			var requestData = [];
 			for(var i = 0; i < _this.cardList.length; i++){
 				if(_this.cardList[i].checked){
-					if(_this.cardList[i].sjflag == 0){
+					// if(_this.cardList[i].sjflag == 0){
 						requestData.push({
 							rcvkey:this.cardList[i].rcvkey
 						});
-					};
+					// };
 				};
 			};
 			if(requestData.length == 0){
@@ -206,8 +248,6 @@ var sj = new Vue({
 				});
 				return;
 			};
-			console.log(requestData);
-			return;
 			AjaxMui({
 				toJson:serializeTran('Dynamic.Hos.Putaway.Pass',requestData),
 				type:"post",
@@ -314,4 +354,11 @@ document.getElementById("endTime").addEventListener('tap', function() {
 		minDate: minDate,
 		maxDate: maxDate
 	});
-})
+});
+// 		startdate: StartDate(new Date(),1),//开始日期
+// 		enddate: StartDate(new Date()),//结束日期
+// 		invoiceno: "",//发票号
+// 		supplyname: "",//供应商名称
+// 		retrievalcode: ""//药品检索
+
+		

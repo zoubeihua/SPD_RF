@@ -1,0 +1,152 @@
+html,body{
+	width: 100%;
+	height: 100%;
+}
+body ::-webkit-input-placeholder { 
+/* WebKit browsers */ 
+font-family: ‘Source Sans Pro’, sans-serif; 
+color: white; 
+/*font-weight: 300;*/ 
+} 
+body :-moz-placeholder { 
+/* Mozilla Firefox 4 to 18 */ 
+font-family: ‘Source Sans Pro’, sans-serif; 
+color: white; 
+opacity: 1; 
+/*font-weight: 300;*/ 
+} 
+body ::-moz-placeholder { 
+/* Mozilla Firefox 19+ */ 
+font-family: ‘Source Sans Pro’, sans-serif; 
+color: white; 
+opacity: 1; 
+/*font-weight: 300;*/ 
+} 
+body :-ms-input-placeholder { 
+/* Internet Explorer 10+ */ 
+font-family: ‘Source Sans Pro’, sans-serif; 
+color: white; 
+/*font-weight: 300;*/
+
+}
+.bg{
+	background: url(../img/login_bg.jpg) no-repeat center;
+	background-size:cover ;
+	
+}
+.conent{
+	width: 74%;
+	height: 50%;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+	-o-transform:translate(-50%,-50%);
+	-ms-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
+}
+.conent .loginTitle{
+	font-size: 28px;
+	color: #fff;
+	text-align: center;
+}
+.conent .loginInput{
+	padding-top: 66px;
+}
+.conent .loginInput input,.loginInput .loginBtn{
+	border: 1px solid #fff;
+	height: 54px;
+	border-radius: 100px;
+	background-color: rgba(0,0,0,0);
+	color: #fff;
+}
+.loginInput .loginBtn{
+	margin-bottom: 15px;
+	border: 0;
+	line-height: 54px;
+	font-size: 18px;
+	text-align: center;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6eb1f8+0,88d8cb+56 */
+	background: rgb(110,177,248); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(110,177,248,1) 0%, rgba(119,188,203,1) 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(110,177,248,1) 0%,rgba(119,188,203,1) 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(110,177,248,1) 0%,rgba(119,188,203,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6eb1f8', endColorstr='#88d8cb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.loginInput .link-area {
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+}
+.loginInput .link-area a{
+	color:#fff;
+}
+.group-boder-hide:before,.group-boder-hide:after,.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell.group-boder-hide:after,.mui-table-view-cell.group-boder-hide{
+	background-color: inherit;
+}
+.mui-popover .mui-table-view.view-bg{
+	background-color: #fff;	
+}
+.mui-popover .mui-table-view.pos-Y-Cent{
+	position: relative;
+	top: 50%;
+	transform: translateY(-60%);
+}
+.saveBtn{
+	width: 100%;
+}
+.mui-input-group .mui-input-row.inputafter-border-left:after{
+	left: 0;
+}
+.mui-input-row label.label-W{
+	width: 42%;
+	padding: 11px 0px;
+}
+.mui-input-row input.input-W{
+	width: 58%;
+}
+.link-area .pos-rev{
+	position: relative;
+}
+.link-area .cur{
+	position: absolute;
+	border: 1px solid #129dcd;
+	color: #129dcd;
+}
+.link-area .cur:before{
+	content: '\e472';
+	display: block;
+	color: #fff;
+	font-size: 15px;
+	text-align: center;
+	border-radius: 50%;
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	z-index: 1;
+}
+.link-area .cur:after{
+	content: '';
+	display: block;
+	color: red;
+	width: 10px;
+	height: 10px;
+	font-size: 15px;
+	text-align: center;
+	border-radius: 50%;
+	background-color: #02dd60;
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	z-index: 0;
+}
+/*
+ * 操作表样式
+ */
+.mui-popover.mui-popover-action.actionsheet{
+	height: 40%;
+	background-color: #f0f0f0 ;
+
+}

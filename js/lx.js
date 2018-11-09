@@ -32,7 +32,25 @@ var LX = new Vue({
 		}]
 	},
 	mounted: function() {
-
+		var _this = this;
+		mui(".mui-input-clear").each(function(index,elm){
+			elm.addEventListener('focus', function(e){
+				var key = this.getAttribute("data-input-clear");
+				mui(".mui-icon-clear")[index].addEventListener('tap',function(e){
+					if(key == 1){
+						_this.reqData.retrievalcode = "";
+					}else if(key == 2){
+						_this.reqData.itemname = "";
+					}
+					else if(key == 3){
+						_this.reqData.startdate = "";
+					}
+					else if(key == 4){
+						_this.reqData.enddate = "";
+					}
+				});
+			})
+		})
 	},
 	methods: {
 		ypbmBtn: function() {
@@ -67,10 +85,15 @@ var LX = new Vue({
 					var detailData = jsonDate.recvdetails;
 					console.log(datastring)
 					if(mainData.totalhandlestate == "1"){
+						if(mainData.recordcount > 0){
+							_this.cardList = detailData.detailline;
+						}else{
+							_this.cardList = [];
+						}
 // 						for(var i = 0; i < detailData.detailline.length; i++) {
 // 							_this.$set(detailData.detailline[i], 'checked', false);
 // 						};
-						_this.cardList = detailData.detailline;
+						
 					}else{
 						mui.toast(mainData.totalhandlemessage, {
 							duration: 'short'
@@ -90,12 +113,12 @@ document.getElementById("startTime").addEventListener('tap', function() {
 	maxDate.setFullYear(2050, 11, 31);
 	plus.nativeUI.pickDate(function(e) {
 		var d = e.date;
-		LX.reqData.startDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
-		Hidekeyboard()
+		LX.reqData.startdate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		Hidekeyboard();
 		// document.getElementById("pickDateBtn").value = +d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}, function(e) {
 		// document.getElementById("pickDateBtn").value = "您没有选择日期";
-		LX.reqData.startDate = "您没有选择日期";
+		LX.reqData.startdate = "您没有选择日期";
 	}, {
 		title: "请选择日期",
 		date: dDate,
@@ -112,12 +135,12 @@ document.getElementById("endTime").addEventListener('tap', function() {
 	maxDate.setFullYear(2050, 11, 31);
 	plus.nativeUI.pickDate(function(e) {
 		var d = e.date;
-		LX.reqData.endDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+		LX.reqData.enddate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
 		Hidekeyboard()
 		// document.getElementById("pickDateBtn").value = +d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	}, function(e) {
 		// document.getElementById("pickDateBtn").value = "您没有选择日期";
-		LX.reqData.endDate = "您没有选择日期";
+		LX.reqData.enddate = "您没有选择日期";
 	}, {
 		title: "请选择日期",
 		date: dDate,

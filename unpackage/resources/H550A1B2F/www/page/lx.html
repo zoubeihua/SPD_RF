@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>流向查询</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			body,html {
+				width: 100%;
+				height: 100%;
+			}
+			p{
+				margin: 0;
+			}
+			* {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			::-webkit-input-placeholder {
+				font-size: 14px;
+			}
+			.fade-enter-active,
+			.fade-leave-active {
+				transition: opacity .5s;
+			}
+			.mui-input-row label{
+				font-size: 14px;
+				padding: 13px 15px;
+			}
+			.fade-enter,
+			.fade-leave-to
+
+			/* .fade-leave-active below version 2.1.8 */
+				{
+				opacity: 0;
+			}
+			.main {
+				display: flex;
+				width: 100%;
+				height: 100%;
+				flex-direction: column;
+			}
+			.seach {
+				display: flex;
+				align-items: center;
+				height: 36px;
+				background-color: #fff;
+				padding: 0 10px;
+				justify-content: space-between;
+				font-size: 14px;
+				color: #333;
+				position: relative;
+				z-index: 1;
+			}
+			.viewContent {
+				flex: 1;
+				width: 100%;
+				overflow: auto;
+				padding: 5px;
+				flex-direction: column;
+				padding-top: 0;
+			}
+			.footer {
+				height: 52px;
+				background-color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content:space-between;
+				padding: 5px 5px;
+			}
+			.footer-fontSize{
+				font-size: 14px;
+			}
+			.seach .ypbm,
+			.seach .ypmc,.seach .dateDropDown {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				flex: 1;
+			}
+			.seach .ypbm {
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.cardList{
+				font-size: 14px;
+				color: #333;
+				padding: 5px;
+				background-color: #fff;
+				border-radius: 5px;
+				margin-top: 5px;
+			}
+			.cardList:active{
+				opacity: 0.3;
+			}
+			.titleFph{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px dashed #EC971F;
+				height: 30px;
+				margin-bottom: 4px;
+			}
+			.titleFph .checkBoxs{
+				
+			}
+			.h-20{
+				height: 20px !important;
+			}
+			.ypdetail{
+				display: flex;
+				flex-direction: column;
+			}
+			.cell-2{
+				display: flex;
+				
+				justify-content: space-between;
+			}
+			.cell-2 p{
+				flex: 1;
+			}
+			.cell-2 .flex-2{
+				flex: 2;
+			}
+			.sjList {
+				position: fixed;
+				top: 36px;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.4);
+				z-index: 1;
+			}
+			.fontColor{
+
+				color: #666;
+			}
+			.cell-List{
+				background-color: #fff;
+			}
+			.sjList .sjRow {
+				height: 40px;
+				line-height: 40px;
+				border-top: #ccc 1px solid;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="main" id="main">
+			<div class="seach">
+				<div class="ypbm" @click="ypbmBtn">
+					<div>
+						药品编码
+						<i v-if="state.ypbmDropDown" class="iconfont icon-tubiaozhizuo-1"></i>
+						<i v-else class="iconfont icon-tubiaozhizuo-"></i>
+					</div>
+				</div>
+				<div class="ypmc" @click="ypmcBtn">
+					<div>
+						药品名称
+						<i v-if="state.ypmcDropDown" class="iconfont icon-tubiaozhizuo-1"></i>
+						<i v-else class="iconfont icon-tubiaozhizuo-"></i>
+					</div>
+				</div>
+				<div class="dateDropDown" @click="dateBtn">
+					<div>
+						时间
+						<i v-if="state.ypmcDropDown" class="iconfont icon-tubiaozhizuo-1"></i>
+						<i v-else class="iconfont icon-tubiaozhizuo-"></i>
+					</div>
+				</div>
+			</div>
+			<div class="viewContent">
+				<div class="cardList" v-for="(item,index) in cardList">
+					<div class="titleFph">
+						<div class="fph">
+							药品编码：{{item.itemcd}}
+						</div>
+						<div class="checkBoxs">
+							入库方式：{{item.rkfs}}
+						</div>
+					</div>
+					<div class="ypdetail">
+						<div class="cell-2">
+							<p class="flex-2">药品名称：{{item.itemname}}</p>
+							<p>规格：{{item.itemspec}}</p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">数量：{{item.yksl}} {{item.unit}}</p>
+							<p>流向：{{item.lx}}</p>
+						</div>
+						<div class="cell-2">
+							<p class="flex-2">购进价：{{item.pricebuy}}</p>
+							<p>购进金额：{{item.gjje}}</p>
+						</div>
+						<div class="cell-2">
+							<p>时间：{{item.operatetime}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 药品编码 -->
+			<transition name="fade">
+				<ul class="sjList" v-show="state.ypbmDropDown">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>药品编码</label>
+							<input type="text" class="mui-input-clear" v-model="reqData.retrievalcode" placeholder="请输入药品编码">
+						</div>
+						<div class="mui-button-row">
+							<button type="button" @click="select" class="mui-btn mui-btn-primary">
+								<span class="mui-icon mui-icon-search"></span>
+								查询
+							</button>
+						</div>
+					</form>
+				</ul>
+			</transition>
+			<!-- 药品名称 -->
+			<transition name="fade">
+				<ul class="sjList" v-show="state.ypmcDropDown">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>药品名称</label>
+							<input type="text" class="mui-input-clear" v-model="reqData.itemname" placeholder="请输入药品名称">
+						</div>
+						<div class="mui-button-row">
+							<button type="button" @click="select" class="mui-btn mui-btn-primary">
+								<span class="mui-icon mui-icon-search"></span>
+								查询
+							</button>
+						</div>
+					</form>
+				</ul>
+			</transition>
+			<!-- 时间选择 -->
+			<transition name="fade">
+				<ul class="sjList" v-show="state.dateDropDown">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>开始时间</label>
+							<input type="text" class="mui-input-clear" v-model="reqData.startdate" id="startTime" placeholder="请输入内容">
+						</div>
+						<div class="mui-input-row">
+							<label>结束时间</label>
+							<input type="text" class="mui-input-clear" v-model="reqData.enddate" id="endTime" placeholder="请输入内容">
+						</div>
+						<div class="mui-button-row">
+							<button type="button" @click="select" class="mui-btn mui-btn-primary">
+								<span class="mui-icon mui-icon-search"></span>
+								查询
+							</button>
+						</div>
+					</form>
+				</ul>
+			</transition>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/syscallrout.js"></script>
+	<script src="../js/utils.js"></script>
+	<script src="../js/lx.js"></script>
+	<script type="text/javascript">
+		mui.init()
+		var old_back = mui.back;
+		mui.back = function() {
+			//执行mui封装好的窗口关闭逻辑；
+			old_back();
+		}
+	</script>
+</html>

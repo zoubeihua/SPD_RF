@@ -5,31 +5,58 @@ var Index = new Vue({
 			{
 				img:'img/ys.png',
 				text:'入库验收',
+				value:'ys',
 				classt:'org',
 				url:'page/ys.html'
 			},
 			{
 				img:'img/sj.png',
 				text:'入库上架',
+				value:'sj',
 				classt:'green',
 				url:'page/sj.html'
 			},
 			{
 				img:'img/cq.png',
 				text:'库存查询',
+				value:'kc',
 				classt:'blue',
-				url:'page/cq.html'
+				url:'page/kc.html'
 			},
 			{
 				img:'img/lx.png',
 				text:'流向查询',
+				value:'lx',
 				classt:'pur',
 				url:'page/lx.html'
 			}
-		]
+		],
+		qxList:[],//权限列表
+		elemList:[]//首页渲染功能菜单
 	},
 	mounted: function () {
-		
+		/* 
+			YK--主任权限（管理员）
+			YKGLCGY--直送，库存，流向查询
+			YKKNAGLY--代表A区，上架，库存，流向查询，无验收
+			YKKNAGLYS--代表B区，上架，库存，流向查询，无验收
+			YKKNCGLY--代表C区，上架，库存，流向查询，无验收
+			YKKNTSGLY--代表T区，上架，库存，流向查询，无验收
+			YKYSY--代表ABCT区，只有验收权限 
+			*/
+		var _this = this;
+		_this.qxList = JSON.parse(LocalData.get('qxList'));
+		if(_this.qxList[0].value == 'YK'){
+			_this.elemList = _this.iconList;
+		}else{
+			for(var i = 0; i < _this.iconList.length;i++){
+				for(var j = 0; j < _this.qxList.length;j++){
+					if(_this.qxList[j].value == _this.iconList[i].value){
+						_this.elemList.push(_this.iconList[i])
+					}
+				}
+			}
+		}
 	},
 	methods:{
 		jump:function(item){
