@@ -184,6 +184,13 @@ var ys = new Vue({
 		},
 		//通过
 		ok:function(){
+			var _this = this;
+			if(_this.ElmData.delday <= 240){
+				mui.alert("效期在240天以内");
+			};
+			if(_this.ElmData.pricebuy != _this.ElmData.invoiceprice){
+				mui.alert("购入价与发票价不一致");
+			};
 			this.Receive('验收合格');
 		},
 		//不通过

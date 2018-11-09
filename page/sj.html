@@ -311,7 +311,7 @@
 						<div class="fph">
 							发票号：{{item.invoiceno}}
 						</div>
-						<div class="checkBoxs" v-if="item.sjflag == 0 || item.ysflag == 1">
+						<div class="checkBoxs" v-if="item.sjflag == 0 && item.ysflag == 1">
 							<i class="iconfont icon-yuangongqudaoAPP-fuxuankuangweixuanzhong" :class="[item.checked ? 'icon-yuangongqudaoAPP-fuxuankuangxuanzhong' : '']"></i>
 						</div>
 					</div>
@@ -342,15 +342,14 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 			<div class="footer">
 				<div class="">
-					<button type="button" class="mui-btn mui-btn-danger" style="margin-right: 20px;" @click="no">不通过</button>
-					<button type="button" class="mui-btn mui-btn-primary" @click="ok">上架</button>
+					<button type="button" class="mui-btn mui-btn-danger" :disabled="(reqData.sjflag == 0 && reqData.ysflag == 1) == false" style="margin-right: 20px;" @click="no">不通过</button>
+					<button type="button" class="mui-btn mui-btn-primary" :disabled="(reqData.sjflag == 0 && reqData.ysflag == 1) == false" @click="ok">上架</button>
 				</div>
 				<div class="">
-					<button @click="allBox" type="button" style="padding: 6px 5px;" class="mui-btn mui-btn-outlined">
+					<button @click="allBox" type="button" :disabled="(reqData.sjflag == 0 && reqData.ysflag == 1) == false" style="padding: 6px 5px;" class="mui-btn mui-btn-outlined">
 						全选
 						<i v-if="allCheck" style="margin-left: 5px;" class="iconfont icon-yuangongqudaoAPP-fuxuankuangxuanzhong"></i>
 						<i v-else style="margin-left: 5px;" class="iconfont icon-yuangongqudaoAPP-fuxuankuangweixuanzhong"></i>

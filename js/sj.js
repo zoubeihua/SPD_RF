@@ -9,7 +9,7 @@ var sj = new Vue({
 		ysztChecked: false,
 		reqData: {
 			sjflag: "0",//上架标志
-			syflag: "0",//验收标志
+			ysflag: "0",//验收标志
 			startdate: StartDate(new Date(),1),//开始日期
 			enddate: StartDate(new Date()),//结束日期
 			invoiceno: "",//发票号
@@ -193,7 +193,7 @@ var sj = new Vue({
 				};
 			});
 			this.ysztText = item.text;
-			this.reqData.syflag = item.val;
+			this.reqData.ysflag = item.val;
 			this.ysztChecked = true;
 			this.show = false;
 			this.ysztShow = false;
@@ -204,7 +204,7 @@ var sj = new Vue({
 			console.log(this.showRightMenu)
 		},
 		radioClick:function(item,index){
-			if(item.sjflag == 0 || item.ysflag == 1){
+			if(item.sjflag == 0 && item.ysflag == 1 || item.sjflag == 0 && item.ysflag == 2){
 				item.checked = !item.checked;
 				if(this.cardList.length == 1){
 					if(item.checked){
@@ -214,13 +214,24 @@ var sj = new Vue({
 					}
 					
 				}
+			}else{
+				if(item.sjflag == 1 || item.ysflag == 0){
+					mui.toast("已上架或未验收的药品不能操作", {
+						duration: 'short'
+					});
+				};
+				if(item.sjflag == 2 || item.ysflag == 2){
+					mui.toast("上架未通过或验收未通过的药品不能操作", {
+						duration: 'short'
+					});
+				};
 			}
 		},
 		allBox:function(){
 			this.allCheck = !this.allCheck;
 			if(this.allCheck){
 				this.cardList.forEach(function(key,index,arr){
-					if(key.sjflag == 0 || key.ysflag == 1){
+					if(key.sjflag == 0 && key.ysflag == 1){
 						key.checked = true;
 					};
 				});
@@ -248,6 +259,7 @@ var sj = new Vue({
 				});
 				return;
 			};
+			console.log(requestData);
 			AjaxMui({
 				toJson:serializeTran('Dynamic.Hos.Putaway.Pass',requestData),
 				type:"post",
